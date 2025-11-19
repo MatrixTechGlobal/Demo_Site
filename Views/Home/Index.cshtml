@@ -1,0 +1,408 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    /* --- Namespace everything under a unique id for high specificity --- */
+    #__multi_carousel_safe__ {
+        --gap: 12px;
+        --arrow-size: 44px;
+        --bg: #f6f8fb;
+        --card-radius: 10px;
+        font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+        box-sizing: border-box;
+    }
+
+        #__multi_carousel_safe__ * {
+            box-sizing: inherit;
+        }
+
+        /* Layout + look (these can still be overridden but specificity helps) */
+        #__multi_carousel_safe__ .mc-wrapper {
+            max-width: 1100px;
+            margin: 12px auto;
+            position: relative;
+            background: #fff;
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        #__multi_carousel_safe__ .mc-viewport {
+            overflow: hidden;
+            width: 100%;
+            border-radius: var(--card-radius);
+        }
+
+        #__multi_carousel_safe__ .mc-track {
+            display: flex;
+            gap: var(--gap);
+            transition: transform .45s cubic-bezier(.2,.9,.2,1);
+            align-items: stretch;
+            will-change: transform;
+        }
+
+        #__multi_carousel_safe__ .mc-item {
+            flex: 0 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(9,20,40,0.06);
+            display: flex;
+            flex-direction: column;
+        }
+
+            #__multi_carousel_safe__ .mc-item img {
+                display: block;
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+            }
+
+        #__multi_carousel_safe__ .mc-body {
+            padding: 10px 12px;
+            font-size: 14px;
+            color: #0b1220;
+        }
+
+        #__multi_carousel_safe__ .mc-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: var(--arrow-size);
+            height: var(--arrow-size);
+            border-radius: 999px;
+            background: rgba(8,20,40,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            border: 0;
+        }
+
+        #__multi_carousel_safe__ .mc-arrow-left {
+            left: 12px;
+        }
+
+        #__multi_carousel_safe__ .mc-arrow-right {
+            right: 12px;
+        }
+
+        #__multi_carousel_safe__ .mc-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        #__multi_carousel_safe__ .mc-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(10,20,40,0.12);
+            border: 0;
+            cursor: pointer;
+        }
+
+            #__multi_carousel_safe__ .mc-dot[aria-pressed="true"] {
+                background: rgba(8,20,40,0.9);
+                transform: scale(1.05);
+            }
+    /* small responsive tweak */
+    @@media (max-width:520px) {
+        #__multi_carousel_safe__ .mc-item img
+
+    {
+        height: 110px;
+    }
+
+    }
+    @@media (max-width:900px) {
+        #__multi_carousel_safe__ .mc-item img
+
+    {
+        height: 130px;
+    }
+
+    }
+
+    /* screen-reader helper */
+    #__multi_carousel_safe__ .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border: 0;
+    }
+</style>
+<body>
+
+    <div class="hero-carousel" id="heroCarousel" aria-roledescription="carousel">
+        <div class="viewport" id="carouselViewport" tabindex="0" aria-live="polite">
+
+            <!-- Slide 1 -->
+            <section class="hero-slide is-active" data-index="0" role="group" aria-roledescription="slide" aria-label="Slide 1 of 3">
+                <img class="bg" src="Images/istockphoto-1073935306-612x612.jpg" alt="" aria-hidden="true" loading="lazy">
+                <div class="hero-content">
+                    <h2 class="hero-title">Discover the New Collection</h2>
+                    <p class="hero-sub">Bold. Minimal. Sustainable — crafted for every day.</p>
+                    <a class="hero-cta" href="#shop">Shop Now</a>
+                </div>
+            </section>
+
+            <!-- Slide 2 -->
+            <section class="hero-slide" data-index="1" role="group" aria-roledescription="slide" aria-label="Slide 2 of 3">
+                <img class="bg" src="Images/shpooing_1.jpg" alt="" aria-hidden="true" loading="lazy">
+                <div class="hero-content">
+                    <h2 class="hero-title">Home Essentials</h2>
+                    <p class="hero-sub">Curated pieces to make your space feel like home.</p>
+                    <a class="hero-cta" href="#home">Explore</a>
+                </div>
+            </section>
+          
+
+        </div>
+
+        <!-- Arrows -->
+        <button class="carousel-arrow arrow-prev" aria-label="Previous slide" id="prevBtn">
+            <!-- chevron left -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+        <button class="carousel-arrow arrow-next" aria-label="Next slide" id="nextBtn">
+            <!-- chevron right -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+
+        <!-- Dots -->
+        <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="Slide indicators"></div>
+
+        <div class="sr-only" id="carouselStatus" aria-live="polite">Slide 1 of 3</div>
+    </div>
+    
+    
+        <!-- Unique container id prevents generic CSS from clobbering -->
+        <div id="__multi_carousel_safe__" aria-roledescription="carousel">
+            <div class="mc-wrapper" id="mc_wrapper">
+                <div class="mc-viewport" id="mc_viewport" tabindex="0" aria-live="polite">
+                    <div class="mc-track" id="mc_track">
+                        <!-- Items: add/remove/replace freely -->
+                        <div class="mc-item"><img src="https://images.unsplash.com/photo-1543168256-4188115762b1?q=80&w=800&auto=format&fit=crop" alt="Item 1"><div class="mc-body">Item 1</div></div>
+                        <div class="mc-item"><img src="https://images.unsplash.com/photo-1505692794403-9f8d3a7f6b03?q=80&w=800&auto=format&fit=crop" alt="Item 2"><div class="mc-body">Item 2</div></div>
+                        <div class="mc-item"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Item 3"><div class="mc-body">Item 3</div></div>
+                        <div class="mc-item"><img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=800&auto=format&fit=crop" alt="Item 4"><div class="mc-body">Item 4</div></div>
+                        <div class="mc-item"><img src="https://images.unsplash.com/photo-1471115853179-bb1d604434e0?q=80&w=800&auto=format&fit=crop" alt="Item 5"><div class="mc-body">Item 5</div></div>
+                        <div class="mc-item"><img src="https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?q=80&w=800&auto=format&fit=crop" alt="Item 6"><div class="mc-body">Item 6</div></div>
+                    </div>
+                </div>
+
+                <button class="mc-arrow mc-arrow-left" id="mc_prev" aria-label="Previous">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </button>
+                <button class="mc-arrow mc-arrow-right" id="mc_next" aria-label="Next">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </button>
+
+                <div class="mc-dots" id="mc_dots" role="tablist" aria-label="Pages"></div>
+                <div class="sr-only" id="mc_status" aria-live="polite">1 of 1</div>
+            </div>
+        </div>
+
+        <script>
+            (function(){
+              // elements
+              const ns = document.getElementById('__multi_carousel_safe__');
+              const viewport = ns.querySelector('#mc_viewport');
+              const track = ns.querySelector('#mc_track');
+              const prevBtn = ns.querySelector('#mc_prev');
+              const nextBtn = ns.querySelector('#mc_next');
+              const dotsWrap = ns.querySelector('#mc_dots');
+              const status = ns.querySelector('#mc_status');
+
+              // defensive styling enforcement to prevent outside CSS overrides
+              // enforce track display:flex with !important
+              track.style.setProperty('display','flex','important');
+              track.style.setProperty('gap', getComputedStyle(document.documentElement).getPropertyValue('--gap') || '12px', 'important');
+              viewport.style.setProperty('overflow','hidden','important');
+              ns.style.setProperty('box-sizing','border-box','important');
+
+              // items
+              let items = Array.from(track.children);
+              let total = items.length;
+
+              // breakpoints (minWidth, perView)
+              const breakpoints = [[0,1],[520,2],[820,3],[1100,4]];
+              let perView = calcPerView();
+              let pageCount = Math.max(1, Math.ceil(total / perView));
+              let currentPage = 0;
+
+              // autoplay settings
+              const autoplay = true;
+              const autoplayDelay = 3600;
+              let autoplayTimer = null;
+              let isPaused = false;
+
+              // helpers
+              function calcPerView(){
+                const w = window.innerWidth;
+                let chosen = 1;
+                for(const [minW, count] of breakpoints) if (w >= minW) chosen = count;
+                return chosen;
+              }
+
+              function readGap(){
+                // prefer computed gap on track, fallback to CSS var --gap, fallback to 12
+                const cs = getComputedStyle(track);
+                const raw = cs.gap || cs.getPropertyValue('gap') || cs.columnGap || cs.getPropertyValue('column-gap');
+                if (raw) return parseFloat(raw);
+                const rootCs = getComputedStyle(document.documentElement);
+                const varGap = rootCs.getPropertyValue('--gap');
+                return varGap ? parseFloat(varGap) : 12;
+              }
+
+              // Set widths in px and force them (important) so external CSS can't override
+              function setWidthsAndClamp(){
+                items = Array.from(track.children);
+                total = items.length;
+                perView = calcPerView();
+                const gap = readGap();
+                const vp = viewport.clientWidth;
+                const totalGaps = gap * (perView - 1);
+                // ensure at least 40px left for each item
+                const itemW = Math.max(40, Math.floor((vp - totalGaps) / perView));
+
+                items.forEach(it => {
+                  // force pixel widths and flex-basis
+                  it.style.setProperty('width', itemW + 'px', 'important');
+                  it.style.setProperty('max-width', itemW + 'px', 'important');
+                  it.style.setProperty('flex-basis', itemW + 'px', 'important');
+                  it.style.setProperty('min-width', itemW + 'px', 'important');
+                });
+
+                pageCount = Math.max(1, Math.ceil(total / perView));
+                if (currentPage > pageCount - 1) currentPage = pageCount - 1;
+
+                buildDots();
+                applyTransformClamped(); // clamp last page so full perView visible
+                debugLog('init', { vp, gap, perView, itemW, total, pageCount });
+              }
+
+              // FIX A: clamp the start index so last page shows full perView items
+              function applyTransformClamped(){
+                if (!items[0]) return;
+                const gap = readGap();
+                const itemRect = items[0].getBoundingClientRect();
+                const itemW = itemRect.width;
+                const maxStartIndex = Math.max(0, total - perView);
+                const desiredStart = Math.min(currentPage * perView, maxStartIndex);
+                const shiftPx = (itemW + gap) * desiredStart;
+
+                // enforce transform with important (via style property)
+                track.style.setProperty('transform', `translateX(-${shiftPx}px)`, 'important');
+
+                // update UI states
+                Array.from(dotsWrap.children).forEach((d,i) => d.setAttribute('aria-pressed', i === currentPage ? 'true' : 'false'));
+                status.textContent = `${currentPage + 1} of ${pageCount}`;
+
+                const showControls = total > perView;
+                // enforce display for arrows (important)
+                prevBtn.style.setProperty('display', showControls ? 'flex' : 'none', 'important');
+                nextBtn.style.setProperty('display', showControls ? 'flex' : 'none', 'important');
+              }
+
+              // build page dots (pages = ceil(total/perView))
+              function buildDots(){
+                dotsWrap.innerHTML = '';
+                for (let i = 0; i < pageCount; i++){
+                  const b = document.createElement('button');
+                  b.className = 'mc-dot';
+                  b.type = 'button';
+                  b.setAttribute('aria-label', `Go to page ${i+1}`);
+                  b.setAttribute('aria-pressed', i === currentPage ? 'true' : 'false');
+                  b.addEventListener('click', () => { goToPage(i, true); });
+                  dotsWrap.appendChild(b);
+                }
+              }
+
+              function goToPage(page, fromUser=false){
+                if (page < 0) page = pageCount - 1;
+                if (page >= pageCount) page = 0;
+                currentPage = page;
+                applyTransformClamped();
+                if (fromUser) pauseThenResume();
+              }
+              function nextPage(){ goToPage(currentPage + 1); }
+              function prevPage(){ goToPage(currentPage - 1); }
+
+              // autoplay control
+              function startAutoplay(){
+                if (!autoplay || total <= perView) return;
+                stopAutoplay();
+                autoplayTimer = setInterval(()=> { if (!isPaused) nextPage(); }, autoplayDelay);
+              }
+              function stopAutoplay(){ if (autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; } }
+              function pauseThenResume(){ isPaused = true; stopAutoplay(); setTimeout(()=> { isPaused = false; startAutoplay(); }, 3000); }
+
+              // events
+              viewport.addEventListener('mouseenter', ()=> isPaused = true);
+              viewport.addEventListener('mouseleave', ()=> isPaused = false);
+              viewport.addEventListener('focusin', ()=> isPaused = true);
+              viewport.addEventListener('focusout', ()=> isPaused = false);
+              viewport.addEventListener('keydown', (e)=> {
+                if (e.key === 'ArrowRight') { e.preventDefault(); nextPage(); pauseThenResume(); }
+                if (e.key === 'ArrowLeft') { e.preventDefault(); prevPage(); pauseThenResume(); }
+              });
+
+              prevBtn.addEventListener('click', ()=> { prevPage(); pauseThenResume(); });
+              nextBtn.addEventListener('click', ()=> { nextPage(); pauseThenResume(); });
+
+              // simple swipe
+              let sX = 0;
+              viewport.addEventListener('touchstart', e => sX = e.changedTouches[0].screenX, {passive:true});
+              viewport.addEventListener('touchend', e => {
+                const eX = e.changedTouches[0].screenX;
+                const d = eX - sX;
+                if (Math.abs(d) > 40) {
+                  if (d < 0) nextPage(); else prevPage();
+                  pauseThenResume();
+                }
+              }, {passive:true});
+
+              // resize: re-calc widths (throttle)
+              let rtid = null;
+              window.addEventListener('resize', ()=> { clearTimeout(rtid); rtid = setTimeout(()=> setWidthsAndClamp(), 120); });
+
+              // debug helper
+              function debugLog(prefix, obj){
+                if (window.location.search.indexOf('debug') !== -1) console.log('[mc]', prefix, obj);
+              }
+              window.mc_debugState = function(){
+                const item = items[0];
+                console.log('mc state', { perView, pageCount, currentPage, total, itemComputed: item ? getComputedStyle(item).width : null, trackTransform: track.style.transform });
+              };
+
+              // initialize
+              setWidthsAndClamp();
+              startAutoplay();
+
+              // expose API
+              window.__multi_carousel_safe = { nextPage, prevPage, goToPage, rebuild: setWidthsAndClamp, debug: window.mc_debugState };
+
+              // small safety: if someone else sets track display away from flex later, re-assert it
+              const observer = new MutationObserver(() => {
+                const d = getComputedStyle(track).display;
+                if (d !== 'flex') track.style.setProperty('display','flex','important');
+              });
+              observer.observe(track, { attributes: true, attributeFilter: ['style', 'class'] });
+
+            })();
+        </script>
+    
+    <script src="~/js/carousel.js">
+       
+    </script>
+</body>
+
+

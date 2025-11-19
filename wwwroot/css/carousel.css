@@ -1,0 +1,367 @@
+﻿/* --- Reset & helpers --- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    margin: 0;
+    color: #111;
+    background: #f7fafc;
+}
+
+/* --- Carousel container --- */
+.hero-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+    margin: 32px auto;
+    border-radius: 14px;
+}
+
+    .hero-carousel .viewport {
+        position: relative;
+        height: 420px;
+        background: #111;
+    }
+
+/* --- Slide (stacked, fading) --- */
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 28px;
+    color: #fff;
+    transition: opacity .6s ease, transform .6s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+    .hero-slide.is-active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+    }
+
+    .hero-slide img.bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: brightness(.55);
+        border-radius: 14px;
+    }
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+}
+
+.hero-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 .5rem;
+    letter-spacing: -0.02em;
+}
+
+.hero-sub {
+    margin: 0 0 1rem;
+    color: #e6eef8;
+    font-size: 1rem;
+    line-height: 1.35;
+}
+
+.hero-cta {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #fff;
+    color: #111;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(2,6,23,.18);
+}
+
+/* --- Controls (arrows) --- */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    background: rgba(0,0,0,.35);
+    border: 0;
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+    .carousel-arrow:hover {
+        background: rgba(0,0,0,.55);
+    }
+
+.arrow-prev {
+    left: 14px;
+}
+
+.arrow-next {
+    right: 14px;
+}
+
+/* --- Dots --- */
+.carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 6;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.45);
+    border: 0;
+    cursor: pointer;
+}
+
+    .dot[aria-pressed="true"] {
+        background: #fff;
+        width: 12px;
+        height: 12px;
+    }
+
+/* --- Responsive --- */
+@@media (max-width:900px) {
+    .hero-content {
+        padding-right: 12px;
+    }
+
+    .hero-title {
+        font-size: 1.6rem;
+    }
+
+    .hero-sub {
+        font-size: .95rem;
+    }
+
+    .hero-carousel .viewport {
+        height: 360px;
+    }
+}
+
+@@media (max-width:520px) {
+    .hero-carousel .viewport {
+        height: 300px;
+    }
+
+    .hero-slide {
+        justify-content: center;
+        text-align: center;
+        padding: 18px;
+    }
+
+    .hero-content {
+        max-width: unset;
+    }
+
+    .carousel-arrow {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* small accessibility helper for screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+
+:root {
+    --gap: 12px;
+    --dot-size: 10px;
+    --arrow-size: 44px;
+    --bg: #f6f8fb;
+    --card-radius: 10px;
+    --shadow: 0 8px 20px rgba(8,20,40,0.08);
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    margin: 24px;
+    background: var(--bg);
+    color: #0b1220
+}
+
+.carousel {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding: 16px;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+
+.carousel-viewport {
+    overflow: hidden;
+    width: 100%;
+    border-radius: var(--card-radius);
+}
+
+.carousel-track {
+    display: flex;
+    gap: var(--gap);
+    transition: transform 500ms cubic-bezier(.2,.9,.2,1);
+    will-change: transform;
+    padding: 12px;
+    align-items: stretch;
+}
+
+.carousel-item {
+    flex: 0 0 auto; /* JS sets width dynamically */
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 14px rgba(9,20,40,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+    .carousel-item img {
+        display: block;
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+.item-body {
+    padding: 10px 12px;
+}
+
+.item-title {
+    font-weight: 600;
+    margin: 0 0 6px;
+    font-size: 0.98rem;
+}
+
+.item-sub {
+    font-size: 0.85rem;
+    color: #556;
+    margin: 0;
+}
+
+/* controls */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--arrow-size);
+    height: var(--arrow-size);
+    border-radius: 999px;
+    background: rgba(8,20,40,0.06);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
+
+    .arrow:hover {
+        background: rgba(8,20,40,0.12);
+    }
+
+    .arrow:active {
+        transform: translateY(-50%) scale(.98);
+    }
+
+.arrow-left {
+    left: 12px;
+}
+
+.arrow-right {
+    right: 12px;
+}
+
+.dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 12px;
+    align-items: center;
+}
+
+.dot {
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 50%;
+    background: rgba(10,20,40,0.12);
+    border: none;
+    cursor: pointer;
+}
+
+    .dot[aria-pressed="true"] {
+        background: rgba(8,20,40,0.9);
+        transform: scale(1.1);
+    }
+
+/* responsive tweak for item image height */
+@media (min-width:900px) {
+    .carousel-item img {
+        height: 160px;
+    }
+}
+
+@media (max-width:899px) {
+    .carousel-item img {
+        height: 140px;
+    }
+}
+
+@media (max-width:520px) {
+    .carousel-item img {
+        height: 120px;
+    }
+}
+
+/* accessibility helper */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}

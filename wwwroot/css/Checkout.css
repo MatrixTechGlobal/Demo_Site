@@ -1,0 +1,414 @@
+﻿.ns-checkout-wrapper {
+    --accent: #0b1220;
+    --accent-2: #059669;
+    --muted: #6b7280;
+    --card: #f8fafc;
+    --radius: 12px;
+    --max-width: 1200px;
+    --gap: 1rem;
+    --transition: 220ms cubic-bezier(.2,.9,.3,1);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+    .ns-checkout-wrapper * {
+        box-sizing: border-box;
+    }
+
+    .ns-checkout-wrapper .ns-stepform {
+        width: 100%;
+        max-width: var(--max-width);
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: 0 6px 30px rgba(16,24,40,0.06);
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .ns-checkout-wrapper .ns-stepform__header {
+        padding: 1rem;
+        background: linear-gradient(90deg,#111827,#1f2937);
+        color: white;
+        display: flex;
+        gap: .75rem;
+        align-items: center;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .ns-checkout-wrapper .ns-stepform__brand {
+        font-weight: 700;
+        letter-spacing: .4px;
+        font-size: 1.05rem;
+    }
+
+    .ns-checkout-wrapper .ns-stepform__title {
+        margin-left: auto;
+        font-size: .95rem;
+        opacity: .9;
+    }
+
+    .ns-checkout-wrapper .ns-stepform__main {
+        display: grid;
+        gap: var(--gap);
+        padding: 1rem;
+    }
+
+    .ns-checkout-wrapper .ns-stepform__steps {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+        overflow: auto;
+        padding-bottom: .25rem;
+    }
+
+    .ns-checkout-wrapper .ns-stepform__step {
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+        padding: .5rem .65rem;
+        border-radius: 999px;
+        background: transparent;
+        cursor: pointer;
+        user-select: none;
+        flex: 0 0 auto;
+        transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+        color: var(--muted);
+        font-size: .92rem;
+    }
+
+        .ns-checkout-wrapper .ns-stepform__step[aria-current="true"] {
+            background: white;
+            box-shadow: 0 6px 26px rgba(16,24,40,0.06);
+            color: var(--accent);
+        }
+
+        .ns-checkout-wrapper .ns-stepform__step .dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-grid;
+            place-items: center;
+            font-weight: 600;
+            background: linear-gradient(180deg,#ffffff,#f3f4f6);
+            box-shadow: 0 1px 0 rgba(16,24,40,0.04) inset;
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        .ns-checkout-wrapper .ns-stepform__step[aria-current="true"] .dot {
+            background: linear-gradient(180deg,#111827,#111827);
+            color: white;
+        }
+
+        .ns-checkout-wrapper .ns-stepform__step:focus, .ns-checkout-wrapper .ns-stepform__step[tabindex]:focus {
+            outline: 4px solid rgba(59,130,246,0.14);
+            outline-offset: 4px;
+            border-radius: 999px;
+        }
+
+    .ns-checkout-wrapper .ns-stepform__panel {
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 3px 14px rgba(16,24,40,0.04);
+    }
+
+    .ns-checkout-wrapper .ns-form-grid {
+        display: grid;
+        gap: .75rem;
+    }
+
+    .ns-checkout-wrapper .ns-row {
+        display: grid;
+        gap: .5rem;
+    }
+
+    .ns-checkout-wrapper .ns-input {
+        display: flex;
+        flex-direction: column;
+        gap: .35rem;
+        font-size: .92rem;
+    }
+
+        .ns-checkout-wrapper .ns-input label {
+            font-weight: 600;
+            font-size: .82rem;
+            color: var(--muted);
+        }
+
+        .ns-checkout-wrapper .ns-input input, .ns-checkout-wrapper .ns-input select, .ns-checkout-wrapper .ns-input textarea {
+            padding: .7rem;
+            border-radius: 9px;
+            border: 1px solid #e6e9ef;
+            outline: none;
+            font-size: .95rem;
+            background: #fff;
+            transition: box-shadow var(--transition), border-color var(--transition);
+        }
+
+            .ns-checkout-wrapper .ns-input input:focus, .ns-checkout-wrapper .ns-input select:focus, .ns-checkout-wrapper .ns-input textarea:focus {
+                box-shadow: 0 6px 20px rgba(17,24,39,0.06);
+                border-color: #c7d2fe;
+            }
+
+    .ns-checkout-wrapper .ns-help {
+        font-size: .8rem;
+        color: var(--muted);
+    }
+
+    .ns-checkout-wrapper .ns-error {
+        color: #ef4444;
+        font-size: .85rem;
+        margin-top: .25rem;
+        display: none;
+    }
+
+    .ns-checkout-wrapper .ns-actions {
+        display: flex;
+        gap: .5rem;
+        margin-top: .75rem;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .ns-checkout-wrapper .btn {
+        border: 0;
+        padding: .7rem .95rem;
+        border-radius: 9px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform var(--transition), box-shadow var(--transition);
+        font-size: .95rem;
+        background: transparent;
+        color: var(--accent);
+    }
+
+        .ns-checkout-wrapper .btn:active {
+            transform: translateY(1px);
+        }
+
+    .ns-checkout-wrapper .btn--primary {
+        background: linear-gradient(90deg,#111827,#1f2937);
+        color: white;
+        box-shadow: 0 12px 30px rgba(17,24,39,0.12);
+    }
+
+    .ns-checkout-wrapper .btn--ghost {
+        background: transparent;
+        border: 1px solid #e6e9ef;
+        color: var(--accent);
+    }
+
+    .ns-checkout-wrapper .ns-order-summary {
+        border-radius: 10px;
+        padding: .85rem;
+        background: linear-gradient(180deg,#ffffff,#fbfdff);
+        border: 1px solid #eef2f7;
+        font-size: .92rem;
+    }
+
+    .ns-checkout-wrapper .ns-product {
+        display: flex;
+        gap: .7rem;
+        align-items: center;
+    }
+
+        .ns-checkout-wrapper .ns-product img {
+            width: 64px;
+            height: 64px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #f1f5f9;
+            vertical-align: middle;
+        }
+
+    .ns-checkout-wrapper .ns-product__meta {
+        flex: 1;
+    }
+
+    .ns-checkout-wrapper .ns-qty {
+        display: flex;
+        gap: .4rem;
+        align-items: center;
+    }
+
+        .ns-checkout-wrapper .ns-qty button {
+            border-radius: 8px;
+            padding: .35rem .5rem;
+            border: 1px solid #e6e9ef;
+            background: white;
+            cursor: pointer;
+            min-width: 32px;
+            text-align: center;
+        }
+
+    .ns-checkout-wrapper .ns-subtotal {
+        font-weight: 700;
+        font-size: 1.05rem;
+        text-align: right;
+    }
+
+    .ns-checkout-wrapper .ns-progressbar {
+        height: 8px;
+        background: linear-gradient(90deg,#eef2ff,#f3f4f6);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: .5rem;
+    }
+
+    .ns-checkout-wrapper .ns-progressbar__fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg,#10b981,#06b6d4);
+        transition: width var(--transition);
+    }
+
+    .ns-checkout-wrapper .ns-review {
+        display: grid;
+        gap: .6rem;
+        font-size: .92rem;
+    }
+
+    .ns-checkout-wrapper .ns-success {
+        display: grid;
+        gap: .5rem;
+        place-items: center;
+        padding: 1.2rem;
+    }
+
+        .ns-checkout-wrapper .ns-success .big {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+@media (min-width: 860px) {
+    .ns-checkout-wrapper .ns-stepform__main {
+        grid-template-columns: 1fr 360px;
+        align-items: start;
+    }
+
+    .ns-checkout-wrapper .ns-stepform__panel {
+        min-height: 360px;
+    }
+
+    .ns-checkout-wrapper .ns-order-summary {
+        position: sticky;
+        top: 1rem;
+    }
+
+    .ns-checkout-wrapper .ns-product img {
+        width: 76px;
+        height: 76px;
+    }
+
+    .ns-checkout-wrapper .ns-progressbar {
+        height: 10px;
+    }
+
+    .ns-checkout-wrapper .ns-stepform__steps {
+        gap: 14.75rem;
+        padding: .5rem 0;
+    }
+
+    .ns-checkout-wrapper .ns-stepform__step {
+        padding: .6rem;
+        border-radius: 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    .ns-checkout-wrapper .ns-actions {
+        flex-direction: column-reverse;
+        gap: .5rem;
+        align-items: stretch;
+    }
+
+    .ns-checkout-wrapper .btn--primary, .ns-checkout-wrapper .btn--ghost {
+        width: 100%;
+        display: block;
+    }
+}
+
+.ns-checkout-wrapper .ns-product__meta > div:first-child {
+    font-weight: 600;
+}
+
+/* SHIPPING STYLES */
+.ns-checkout-wrapper .shipping-method {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #e6eef2;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 180ms ease;
+    background: white;
+}
+
+    .ns-checkout-wrapper .shipping-method:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(16,24,40,0.04);
+    }
+
+    .ns-checkout-wrapper .shipping-method .method-name {
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .ns-checkout-wrapper .shipping-method .method-meta {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 4px;
+    }
+
+    /* selected visual: stronger border + badge + slightly larger method text */
+    .ns-checkout-wrapper .shipping-method.selected {
+        border-color: var(--accent-2);
+        box-shadow: 0 8px 30px rgba(5,181,138,0.06);
+        transform: none;
+        background: linear-gradient(180deg,#ffffff,#f9fffb);
+    }
+
+        .ns-checkout-wrapper .shipping-method.selected .method-name {
+            font-size: 1.03rem;
+            color: var(--accent);
+        }
+
+/* badge */
+.ns-checkout-wrapper .badge {
+    display: inline-block;
+    background: var(--accent-2);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 999px;
+    margin-left: 10px;
+    vertical-align: middle;
+    box-shadow: 0 4px 10px rgba(5,181,138,0.06);
+}
+
+/* aside preview - make selected method preview larger and show badge */
+.ns-checkout-wrapper .aside-method {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    margin-top:.4rem;
+}
+
+    .ns-checkout-wrapper .aside-method .small-muted {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+    }

@@ -1,0 +1,256 @@
+﻿/* ---------------------
+           PDP (Bootstrap) - Namespaced pdp-
+           --------------------- */
+        .pdp-root {
+            --pdp-accent: #111111;
+            --pdp-muted: #6b7280;
+            --pdp-accent-2: #0b66c2;
+            --pdp-price-old: #9aa4ad;
+        }
+
+        .pdp-page {
+            max-width: 1200px;
+            margin: 32px auto;
+            padding: 0 16px;
+            font-family: Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+            color: #111;
+        }
+
+        /* layout: thumbs | media | details on large screens; stack on smaller */
+        @media (min-width: 992px) {
+            .pdp-row
+
+        {
+            display: grid;
+            grid-template-columns: 90px 1fr 420px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        }
+        @media (max-width: 991.98px) {
+            .pdp-row
+
+        {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        }
+
+        /* thumbnails */
+        .pdp-thumbs {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+        @media (max-width:991.98px) {
+            .pdp-thumbs
+
+        {
+            flex-direction: row;
+            overflow: auto;
+            padding-bottom: 8px;
+        }
+
+        }
+
+        .pdp-thumb {
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e6e9ef;
+            background: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+            .pdp-thumb img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .pdp-thumb.pdp-thumb--active {
+                outline: 3px solid rgba(11,102,194,0.14);
+                transform: translateY(-2px);
+            }
+
+        /* media */
+        .pdp-media {
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f6f7f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pdp-media-inner {
+            width: 100%;
+            padding-top: 110%;
+            position: relative;
+        }
+
+            .pdp-media-inner img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+        /* details */
+        .pdp-brand {
+            color: var(--pdp-muted);
+            font-weight: 600;
+            letter-spacing: .6px;
+            margin-bottom: 6px;
+        }
+
+        .pdp-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .pdp-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--pdp-accent);
+        }
+
+        .pdp-price-old {
+            text-decoration: line-through;
+            color: var(--pdp-price-old);
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        /* swatches */
+        .pdp-swatches {
+            display: flex;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .pdp-swatch {
+            width: 56px;
+            height: 56px;
+            border-radius: 8px;
+            border: 1px solid #e6e9ef;
+            background: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+            .pdp-swatch img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .pdp-swatch.pdp-swatch--active {
+                box-shadow: 0 8px 20px rgba(11,102,194,0.08);
+                outline: 2px solid rgba(11,102,194,0.12);
+            }
+
+        /* size buttons (single-select) */
+        .pdp-size-grid {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 8px 0 16px;
+        }
+
+        .pdp-size {
+            min-width: 64px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #d7dbe1;
+            background: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
+
+            .pdp-size.pdp-size--selected {
+                border-color: var(--pdp-accent-2);
+                box-shadow: 0 6px 16px rgba(11,102,194,0.08);
+            }
+
+        /* note box */
+        .pdp-note {
+            border: 1px solid #e6e9ef;
+            padding: 12px;
+            border-radius: 8px;
+            background: #fff;
+            color: var(--pdp-muted);
+        }
+
+        /* CTAs */
+        .pdp-ctas {
+            display: flex;
+            gap: 12px;
+            flex-direction: column;
+            margin-top: 12px;
+        }
+
+        .pdp-btn-add {
+            padding: 14px 18px;
+            border-radius: 999px;
+            background: var(--pdp-accent);
+            color: #fff;
+            border: 0;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .pdp-btn-fav {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid #e6e9ef;
+            background: #fff;
+            color: var(--pdp-accent);
+            font-weight: 600;
+        }
+
+        /* favorite heart */
+        .pdp-heart {
+            font-size: 18px;
+            margin-right: 8px;
+            transition: transform .12s ease;
+        }
+
+        .pdp-fav--active .pdp-heart {
+            color: #e63946;
+            transform: scale(1.06);
+        }
+
+        /* small responsive tweaks */
+        @media (max-width:640px) {
+            .pdp-media-inner
+
+        {
+            padding-top: 100%;
+        }
+
+        .pdp-title {
+            font-size: 1.05rem;
+        }
+
+        .pdp-price {
+            font-size: 1.05rem;
+        }
+
+        }

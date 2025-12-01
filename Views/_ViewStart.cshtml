@@ -1,3 +1,18 @@
-﻿@{
+﻿@using System.Web;
+@{
     Layout = "_Layout";
+
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    string cLayout = "";
+
+    if (!string.IsNullOrEmpty(controller) && controller.Contains("Admin"))
+    {
+        cLayout = "~/Views/Shared/_AdminLaout.cshtml";
+    }
+    else
+    {
+        cLayout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    Layout = cLayout;
 }

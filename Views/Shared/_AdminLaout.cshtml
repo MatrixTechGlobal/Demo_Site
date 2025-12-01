@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - eCommerce_Site</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/carousel.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="hdrx">
+        <header class="site-header" role="banner">
+            <div class="hf-wrap" role="navigation" aria-label="Main navigation">
+                <div class="hf-left"><a class="brand" href="#">My Store</a></div>
+                
+                <!-- hidden fallback toggle -->
+                <input id="searchToggle" type="checkbox" />
+
+                <!-- search: absolute so it overlays header area when open -->
+                <div id="searchInner" class="search-inner" role="search" aria-label="Site search">
+                    <input id="searchInput" class="search-input" type="search" placeholder="Search products, categories or styles" autocomplete="off" />
+                    <button id="searchClear" class="search-clear" aria-label="Clear search" title="Clear">
+                        <svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="#666" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+                    </button>
+                </div>
+
+                <!-- visible icon label (we prevent default and call toggleSearch) -->
+                <label id="searchTrigger" class="icon-label" for="searchToggle" title="Search" role="button" aria-pressed="false"
+                       onclick="(function(ev){ ev.preventDefault(); toggleSearch(); })(event);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" stroke="#333" stroke-width="1.6" fill="none" /><path d="M21 21l-4.35-4.35" stroke="#333" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+                </label>
+
+            </div>
+        </header>
+       
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - eCommerce_Site - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,610 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cart — Responsive (Demo JS)</title>
+    <style>
+        /* ==========================
+           Cart — namespaced with cart-
+           ========================== */
+        .cart-root {
+            --cart-max-width: 1200px;
+            --cart-gap: 28px;
+            --cart-accent: #0b0b0b;
+            --cart-muted: #6b7280;
+            --cart-cta-bg: #0b0b0b;
+            --cart-cta-color: #ffffff;
+            --cart-border: #e6e9ef;
+            --cart-success: #117a3a;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            color: #111827;
+            background: #fafafa;
+            padding: 28px 16px;
+        }
+
+            /* page container */
+            .cart-root .cart-page {
+                max-width: var(--cart-max-width);
+                margin: 0 auto;
+                box-sizing: border-box;
+            }
+
+            /* grid: mobile-first stack */
+            .cart-root .cart-grid {
+                display: grid;
+                gap: 20px;
+                grid-template-columns: 1fr; /* stacked by default */
+            }
+
+        /* content columns on larger screens: left 2fr, right 1fr */
+        @@media (min-width:900px) {
+            .cart-root .cart-grid
+
+        {
+            grid-template-columns: 2fr 1fr;
+            gap: 36px;
+            align-items: start;
+        }
+
+        }
+
+        /* Left column (items) */
+        .cart-items {
+            background: #fff;
+            border: 1px solid var(--cart-border);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 6px 18px rgba(16,24,40,0.04);
+        }
+
+        /* item row */
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr 140px; /* image | details | price/actions */
+            gap: 14px;
+            align-items: start;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--cart-border);
+        }
+
+            .cart-item:last-of-type {
+                border-bottom: none;
+            }
+
+            /* product image */
+            .cart-item .cart-thumb {
+                width: 100px;
+                height: 100px;
+                border-radius: 6px;
+                background: #f4f5f7;
+                overflow: hidden;
+                display: block;
+            }
+
+                .cart-item .cart-thumb img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }
+
+            /* details */
+            .cart-item .cart-details {
+                font-size: 0.95rem;
+                color: #111827;
+            }
+
+            .cart-item .cart-brand {
+                font-weight: 700;
+                margin-bottom: 6px;
+            }
+
+            .cart-item .cart-title {
+                color: var(--cart-muted);
+                margin-bottom: 6px;
+                display: block;
+                font-size: 0.92rem;
+            }
+
+            .cart-item .cart-variant {
+                color: var(--cart-muted);
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+
+            /* actions area (qty + fav) */
+            .cart-item .cart-actions {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 12px;
+            }
+
+            /* price */
+            .cart-item .cart-price {
+                font-weight: 700;
+                font-size: 1rem;
+                color: var(--cart-accent);
+            }
+
+        /* qty control (visual + functional) */
+        .cart-qty {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            border-radius: 28px;
+            padding: 6px;
+            border: 1px solid var(--cart-border);
+        }
+
+            .cart-qty button {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border: 1px solid var(--cart-border);
+                background: white;
+                cursor: pointer;
+                font-size: 18px;
+                line-height: 1;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .cart-qty .cart-qty-value {
+                min-width: 28px;
+                text-align: center;
+                font-weight: 700;
+            }
+
+        /* small controls row under item (shipping/pickup links) */
+        .cart-item .cart-extra {
+            margin-top: 10px;
+            color: var(--cart-muted);
+            font-size: 0.92rem;
+        }
+
+            .cart-item .cart-extra a {
+                color: var(--cart-accent);
+                text-decoration: underline;
+            }
+
+        /* Footer spacing */
+        .cart-items .cart-footer {
+            margin-top: 18px;
+            border-top: 1px solid var(--cart-border);
+            padding-top: 14px;
+            color: var(--cart-muted);
+            font-size: 0.92rem;
+        }
+
+        /* Right column (summary) */
+        .cart-summary {
+            background: #fff;
+            border: 1px solid var(--cart-border);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 6px 18px rgba(16,24,40,0.04);
+            position: relative;
+        }
+
+            /* promo input row */
+            .cart-summary .cart-promo-row {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                margin-bottom: 18px;
+            }
+
+            .cart-summary input[type="text"] {
+                flex: 1;
+                padding: 10px 12px;
+                border-radius: 8px;
+                border: 1px solid var(--cart-border);
+                font-size: 0.95rem;
+            }
+
+            .cart-summary .cart-btn-apply {
+                padding: 10px 14px;
+                border-radius: 8px;
+                border: 1px solid var(--cart-border);
+                background: white;
+                cursor: pointer;
+                font-weight: 700;
+            }
+
+        /* totals list */
+        .cart-totals {
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+            .cart-totals .cart-row {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 0;
+                align-items: center;
+                border-bottom: 1px solid #f1f2f4;
+            }
+
+                .cart-totals .cart-row:last-child {
+                    border-bottom: none;
+                    font-weight: 800;
+                    font-size: 1.05rem;
+                }
+
+        /* progress to free shipping */
+        .cart-free {
+            margin-top: 18px;
+        }
+
+            .cart-free .cart-free-text {
+                font-size: 0.92rem;
+                color: var(--cart-muted);
+                margin-bottom: 8px;
+            }
+
+            .cart-free .cart-progress {
+                width: 100%;
+                height: 10px;
+                background: #e9f3ea;
+                border-radius: 999px;
+                overflow: hidden;
+            }
+
+                .cart-free .cart-progress > span {
+                    display: block;
+                    height: 100%;
+                    width: 0%;
+                    background: var(--cart-success);
+                    border-radius: 999px;
+                    transition: width .36s ease;
+                }
+
+        /* checkout button */
+        .cart-summary .cart-btn-checkout {
+            margin-top: 18px;
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--cart-cta-bg);
+            color: var(--cart-cta-color);
+            border-radius: 999px;
+            border: 0;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        /* helper link row */
+        .cart-summary .cart-note {
+            font-size: 0.92rem;
+            color: var(--cart-muted);
+            margin-top: 10px;
+        }
+
+        /* responsive tweaks */
+        @@media (max-width:899px) {
+            .cart-item
+
+        {
+            grid-template-columns: 84px 1fr;
+        }
+
+        .cart-item .cart-actions {
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+
+        .cart-item .cart-price {
+            order: 3;
+            margin-left: auto;
+        }
+
+        .cart-item .cart-extra {
+            grid-column: 1 / -1;
+            margin-top: 8px;
+        }
+
+        }
+
+        /* mobile small font tweaks */
+        @@media (max-width:480px) {
+            .cart-root
+
+        {
+            padding: 18px 12px;
+        }
+
+        .cart-item {
+            gap: 10px;
+            padding: 12px 0;
+        }
+
+        .cart-thumb {
+            width: 78px;
+            height: 78px;
+        }
+
+        .cart-item .cart-title {
+            font-size: 0.9rem;
+        }
+
+        .cart-summary {
+            padding: 16px;
+        }
+
+            .cart-summary .cart-promo-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cart-summary .cart-btn-apply {
+                width: 100%;
+            }
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cart-root" aria-live="polite">
+        <div class="cart-page">
+
+            <div class="cart-grid">
+
+                <!-- LEFT: items -->
+                <section class="cart-items" aria-label="Shopping bag">
+                    <h2 style="margin:0 0 12px 0; font-size:1.25rem;">My Cart</h2>
+
+                    <!-- Cart Item (example) -->
+                    <!-- data-price = unit price (number), data-qty = initial qty -->
+                    <div class="cart-item" role="group" aria-labelledby="item1-title" data-price="110.00" data-qty="3">
+                        <a href="#" class="cart-thumb" aria-hidden="true">
+                            <img src="/Images/shpooing_1.jpg" alt="Product image">
+                        </a>
+
+                        <div class="cart-details">
+                            <div id="item1-title" class="cart-brand">NOCTA</div>
+                            <div class="cart-title">NOCTA Fleece CS Sweatpants</div>
+                            <div class="cart-variant">Neptune Green / Black</div>
+                            <div style="margin-top:8px;">
+                                <a href="#" style="color:var(--cart-accent); text-decoration:underline; font-weight:600;">Size M</a>
+                            </div>
+
+                            @* <div class="cart-extra" aria-label="Shipping info">
+                                <div style="margin-top:12px; font-weight:700; color:#111827;">Shipping</div>
+                                <div>Arrives by <strong>Wed, Dec 10</strong> to <a href="#" style="color:var(--cart-accent); text-decoration:underline;">110054</a></div>
+
+                                <div style="margin-top:12px; font-weight:700;">Free Pickup</div>
+                                <div><a href="#" style="color:var(--cart-accent); text-decoration:underline;">Find a Store</a></div>
+                            </div> *@
+                        </div>
+
+                        <div class="cart-actions" aria-hidden="false">
+                            <!-- Line total for this item (price * qty) -->
+                            <div class="cart-price" aria-label="Item total">$330.00</div>
+
+                            <div style="display:flex; gap:12px; align-items:center; margin-top:6px;">
+                                <!-- qty control -->
+                                <div class="cart-qty" aria-label="Quantity selector" role="group" aria-labelledby="qty-label-1">
+                                    <button type="button" class="cart-qty-decrease" aria-label="Decrease quantity">−</button>
+                                    <div id="qty-label-1" class="cart-qty-value">3</div>
+                                    <button type="button" class="cart-qty-increase" aria-label="Increase quantity">+</button>
+                                </div>
+
+                                <button type="button" class="cart-btn-fave" aria-label="Favorite item" title="Save for later" style="border-radius:50%; border:1px solid var(--cart-border); background:white; width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">♡</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Cart Item -->
+                    <!-- Another sample item (duplicate to demonstrate multi-item handling) -->
+                    <div class="cart-item" role="group" aria-labelledby="item2-title" data-price="60.00" data-qty="1">
+                        <a href="#" class="cart-thumb" aria-hidden="true">
+                            <img src="/Images/istockphoto-1073935306-612x612.jpg" alt="Product image 2">
+                        </a>
+
+                        <div class="cart-details">
+                            <div id="item2-title" class="cart-brand">BRAND X</div>
+                            <div class="cart-title">Comfort Hoodie</div>
+                            <div class="cart-variant">Charcoal</div>
+                            <div style="margin-top:8px;">
+                                <a href="#" style="color:var(--cart-accent); text-decoration:underline; font-weight:600;">Size L</a>
+                            </div>
+                            <div class="cart-extra" aria-label="Shipping info">
+                                <div style="margin-top:12px; font-weight:700; color:#111827;">Shipping</div>
+                                <div>Arrives by <strong>Fri, Dec 12</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="cart-actions">
+                            <div class="cart-price" aria-label="Item total">$60.00</div>
+
+                            <div style="display:flex; gap:12px; align-items:center; margin-top:6px;">
+                                <div class="cart-qty" role="group">
+                                    <button type="button" class="cart-qty-decrease" aria-label="Decrease quantity">−</button>
+                                    <div class="cart-qty-value">1</div>
+                                    <button type="button" class="cart-qty-increase" aria-label="Increase quantity">+</button>
+                                </div>
+
+                                <button type="button" class="cart-btn-fave" aria-label="Favorite item" title="Save for later" style="border-radius:50%; border:1px solid var(--cart-border); background:white; width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">♡</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cart-footer">Need help? <a href="#" style="color:var(--cart-accent); text-decoration:underline;">Contact support</a></div>
+                </section>
+
+                <!-- RIGHT: summary -->
+                <aside class="cart-summary" aria-label="Order summary" data-free-threshold="380.00">
+                    <h2 style="margin:0 0 14px 0; font-size:1.25rem;">Summary</h2>
+
+                    <!-- promo -->
+                    <div class="cart-promo-row" role="form" aria-label="Promo code">
+                        <input id="cart-promo" type="text" name="promo" placeholder="Promo code" aria-label="Promo code">
+                        <button class="cart-btn-apply" type="button">Apply</button>
+                    </div>
+
+                    <!-- totals -->
+                    <div class="cart-totals" aria-hidden="false">
+                        <div class="cart-row"><div>Subtotal</div><div id="cart-subtotal">$390.00</div></div>
+                        <div class="cart-row"><div>Estimated Shipping &amp; Handling</div><div id="cart-shipping">Free</div></div>
+                        <div class="cart-row"><div>Estimated Tax</div><div id="cart-tax">—</div></div>
+                        <div class="cart-row" style="border-top:1px solid var(--cart-border); margin-top:8px;"><div>Total</div><div id="cart-total">$390.00</div></div>
+                    </div>
+
+                  @*   <div class="cart-note">You qualify for Free Shipping as a Member! <a href="#" style="color:var(--cart-accent); text-decoration:underline;">Join us</a> or <a href="#" style="color:var(--cart-accent); text-decoration:underline;">Sign-in</a></div>
+
+                    <!-- progress -->
+                    <div class="cart-free" aria-hidden="false">
+                        <div class="cart-free-text" id="cart-free-text">Spend <strong>$<span id="cart-free-remaining">0.00</span></strong> more to reach free shipping</div>
+                        <div class="cart-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="cart-progress-bar"></span></div>
+                    </div> *@
+
+                    <!-- checkout -->
+                    <button class="cart-btn-checkout" type="button" aria-label="Checkout">Checkout</button>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /*
+         Demo cart script (namespaced)
+         - Updates qty +/- for each .cart-item
+         - Recomputes line totals, subtotal, total
+         - Updates free-shipping progress bar based on data-free-threshold on .cart-summary
+         - No external dependencies, unobtrusive
+        */
+
+        (function () {
+          const root = document.querySelector('.cart-root');
+          if (!root) return;
+
+          const currency = (n) => {
+            // format as $X,XXX.XX
+            return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(n);
+          };
+
+          const itemsContainer = root.querySelector('.cart-items');
+          const summaryNode = root.querySelector('.cart-summary');
+          const freeThreshold = parseFloat(summaryNode.dataset.freeThreshold || summaryNode.dataset.freeThreshold || summaryNode.getAttribute('data-free-threshold')) || 380.00;
+
+          const subtotalNode = root.querySelector('#cart-subtotal');
+          const totalNode = root.querySelector('#cart-total');
+          const freeTextNode = root.querySelector('#cart-free-text');
+          const freeRemainNode = root.querySelector('#cart-free-remaining');
+          const progressBar = root.querySelector('#cart-progress-bar');
+
+          // Initialize items: read data-price and data-qty and set up event listeners
+          function initItems() {
+            const items = Array.from(root.querySelectorAll('.cart-item'));
+            items.forEach((item, index) => {
+              const price = parseFloat(item.dataset.price) || 0;
+              let qty = parseInt(item.dataset.qty) || 1;
+
+              const qtyValueEl = item.querySelector('.cart-qty-value');
+              const btnInc = item.querySelector('.cart-qty-increase');
+              const btnDec = item.querySelector('.cart-qty-decrease');
+              const lineTotalEl = item.querySelector('.cart-price'); // used to display line total
+
+              // set initial qty UI
+              if (qtyValueEl) qtyValueEl.textContent = String(qty);
+              if (lineTotalEl) lineTotalEl.textContent = currency(price * qty);
+
+              // increment
+              if (btnInc) {
+                btnInc.addEventListener('click', () => {
+                  qty = qty + 1;
+                  item.dataset.qty = qty;
+                  if (qtyValueEl) qtyValueEl.textContent = String(qty);
+                  if (lineTotalEl) lineTotalEl.textContent = currency(price * qty);
+                  recalcTotals();
+                });
+              }
+              // decrement
+              if (btnDec) {
+                btnDec.addEventListener('click', () => {
+                  if (qty <= 1) return; // minimum 1
+                  qty = qty - 1;
+                  item.dataset.qty = qty;
+                  if (qtyValueEl) qtyValueEl.textContent = String(qty);
+                  if (lineTotalEl) lineTotalEl.textContent = currency(price * qty);
+                  recalcTotals();
+                });
+              }
+            });
+          }
+
+          function recalcTotals() {
+            const items = Array.from(root.querySelectorAll('.cart-item'));
+            let subtotal = 0;
+            items.forEach(item => {
+              const price = parseFloat(item.dataset.price) || 0;
+              const qty = parseInt(item.dataset.qty) || 1;
+              subtotal += price * qty;
+            });
+
+            // Update subtotal / total nodes
+            subtotalNode.textContent = currency(subtotal);
+            totalNode.textContent = currency(subtotal); // here shipping/tax static as in design; extend as needed
+
+            // Update progress bar vs freeThreshold
+            const percent = Math.min(100, Math.round((subtotal / freeThreshold) * 100));
+            progressBar.style.width = percent + '%';
+            progressBar.parentElement.setAttribute('aria-valuenow', String(percent));
+
+            // amount remaining or reached
+            const remaining = Math.max(0, freeThreshold - subtotal);
+            freeRemainNode.textContent = remaining.toFixed(2);
+
+            // update message text (if reached, show congratulations)
+            if (remaining <= 0) {
+              freeTextNode.innerHTML = 'You have qualified for <strong>Free Shipping</strong>!';
+            } else {
+              freeTextNode.innerHTML = 'Spend <strong>$<span id="cart-free-remaining">'+remaining.toFixed(2)+'</span></strong> more to reach free shipping';
+            }
+          }
+
+          // Setup favorite buttons (visual only)
+          function initFavorites() {
+            const favBtns = Array.from(root.querySelectorAll('.cart-btn-fave'));
+            favBtns.forEach(btn => {
+              btn.addEventListener('click', () => {
+                const isFav = btn.classList.toggle('cart-fave--active');
+                btn.textContent = isFav ? '♥' : '♡';
+              });
+            });
+          }
+
+          // Initial setup
+          initItems();
+          initFavorites();
+          recalcTotals();
+
+          // Optional: demo hook for Apply promo (no logic)
+          const applyBtn = root.querySelector('.cart-btn-apply');
+          if (applyBtn) {
+            applyBtn.addEventListener('click', () => {
+              const promo = (root.querySelector('#cart-promo') || {}).value || '';
+              applyBtn.disabled = true;
+              const old = applyBtn.textContent;
+              applyBtn.textContent = 'Applied';
+              setTimeout(() => {
+                applyBtn.disabled = false;
+                applyBtn.textContent = old;
+                // In a real app you would validate promo code and re-calc totals
+                // dispatch a custom event for host app to handle
+                root.dispatchEvent(new CustomEvent('cart:promo-applied', { detail: { code: promo } }));
+              }, 900);
+            });
+          }
+        })();
+    </script>
+</body>
+</html>

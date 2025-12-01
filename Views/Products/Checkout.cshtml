@@ -1,0 +1,251 @@
+﻿
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Namespaced Step Checkout — No Payment (Shipping Highlight)</title>
+
+    <!-- Optional font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="/css/Checkout.css">
+    <style>
+        /* Fully namespaced styles: all rules sit under .ns-checkout-wrapper */
+        
+
+    </style>
+</head>
+
+    <div class="ns-checkout-wrapper" aria-live="polite">
+        <div class="ns-stepform" id="ns-checkout">
+
+            <!-- header -->
+            <div class="ns-stepform__header" role="banner">
+                <div class="ns-stepform__brand">YourStore</div>
+                <div class="ns-stepform__title">Secure checkout</div>
+            </div>
+
+            <div class="ns-stepform__main">
+                <!-- LEFT: steps & panels -->
+                <div>
+                    <!-- steps (progress chips) -->
+                    <nav class="ns-stepform__steps" aria-label="Checkout steps" id="ns-stepsList">
+                        <div class="ns-stepform__step" data-step="0" role="button" tabindex="0" aria-current="true">
+                            <span class="dot">1</span>
+                            <span class="label">Cart</span>
+                        </div>
+                        <div class="ns-stepform__step" data-step="1" role="button" tabindex="0" aria-current="false">
+                            <span class="dot">2</span>
+                            <span class="label">Shipping</span>
+                        </div>
+                        <div class="ns-stepform__step" data-step="2" role="button" tabindex="0" aria-current="false">
+                            <span class="dot">3</span>
+                            <span class="label">Review</span>
+                        </div>
+                    </nav>
+
+                    <!-- progress bar -->
+                    <div class="ns-progressbar" aria-hidden="true">
+                        <div class="ns-progressbar__fill" id="ns-progressFill" style="width:25%"></div>
+                    </div>
+
+                    <!-- panel card -->
+                    <section class="ns-stepform__panel" id="ns-panelArea">
+
+                        <!-- Step 0: Cart -->
+                        <form class="ns-form ns-step" data-step="0" novalidate>
+                            <div class="ns-form-grid">
+                                <h3 style="margin:0 0 .5rem 0">Cart</h3>
+                                <p class="ns-help">Review items in your bag and quantities.</p>
+
+                                <div class="ns-order-summary" aria-live="polite">
+                                    <div class="ns-product">
+                                        <img src="https://images.unsplash.com/photo-1528701800489-4761b7ddb4b3?w=800&q=60&auto=format&fit=crop" alt="Running shoe">
+                                        <div class="ns-product__meta">
+                                            <div style="font-weight:700">Sprint Runner — Black</div>
+                                            <div class="ns-help">Size: 9 • Color: Black</div>
+                                        </div>
+                                        <div style="text-align:right">
+                                            <div class="ns-qty" aria-hidden="false">
+                                                <button type="button" class="ns-qty-decrease" aria-label="Decrease quantity">−</button>
+                                                <div style="padding:.35rem .6rem; min-width:36px; text-align:center" id="ns-qty">1</div>
+                                                <button type="button" class="ns-qty-increase" aria-label="Increase quantity">+</button>
+                                            </div>
+                                            <div style="margin-top:.5rem" class="ns-help">₹ 6,999</div>
+                                        </div>
+                                    </div>
+
+                                    <hr style="border:none;border-top:1px solid #eef2f7;margin:.7rem 0">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                                        <div class="ns-help">Subtotal</div>
+                                        <div class="ns-subtotal" id="ns-subtotal">₹ 6,999</div>
+                                    </div>
+                                </div>
+
+                                <div class="ns-actions">
+                                    <div class="left">
+                                        <button type="button" class="btn btn--ghost" id="ns-continueShopping">← Continue shopping</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn--primary" data-next>Proceed to shipping →</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Step 1: Shipping -->
+                        <form class="ns-form ns-step" data-step="1" style="display:none" novalidate>
+                            <div class="ns-form-grid">
+                                <h3 style="margin:0 0 .5rem 0">Shipping</h3>
+                                <p class="ns-help">Enter shipping address</p>
+
+                                <div class="ns-row">
+                                    <div class="ns-input">
+                                        <label for="ns-fullname">Full name</label>
+                                        <input id="ns-fullname" name="fullname" required placeholder="John Doe" autocomplete="name">
+                                        <div class="ns-error" data-for="ns-fullname">Please enter a name.</div>
+                                    </div>
+
+                                    <div class="ns-input">
+                                        <label for="ns-phone">Phone</label>
+                                        <input id="ns-phone" name="phone" type="tel" required placeholder="+91 98765 43210" autocomplete="tel">
+                                        <div class="ns-error" data-for="ns-phone">Please enter a phone.</div>
+                                    </div>
+
+                                    <div class="ns-input">
+                                        <label for="ns-address1">Address line 1</label>
+                                        <input id="ns-address1" name="address1" required placeholder="House, street, building" autocomplete="street-address">
+                                        <div class="ns-error" data-for="ns-address1">Please enter address.</div>
+                                    </div>
+
+                                    <div class="ns-input">
+                                        <label for="ns-address2">Address line 2 <span class="ns-help">(optional)</span></label>
+                                        <input id="ns-address2" name="address2" placeholder="Landmark, colony">
+                                    </div>
+
+                                    <div style="display:grid;grid-template-columns:1fr 120px;gap:.5rem">
+                                        <div class="ns-input">
+                                            <label for="ns-city">City</label>
+                                            <input id="ns-city" name="city" required placeholder="City">
+                                            <div class="ns-error" data-for="ns-city">Please enter city.</div>
+                                        </div>
+                                        <div class="ns-input">
+                                            <label for="ns-pincode">Pincode</label>
+                                            <input id="ns-pincode" name="pincode" required placeholder="560001" inputmode="numeric">
+                                            <div class="ns-error" data-for="ns-pincode">Please enter pincode.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ns-actions">
+                                        <div class="left">
+                                            <button type="button" class="btn btn--ghost" data-prev>← Back</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn--primary" data-next>Continue to review →</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Step 2: Review -->
+                        <form class="ns-form ns-step" data-step="2" style="display:none" novalidate>
+                            <div class="ns-form-grid">
+                                <h3 style="margin:0 0 .5rem 0">Review & place order</h3>
+                                <p class="ns-help">Confirm details below before placing order.</p>
+
+                                <div class="ns-review">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                                        <div>
+                                            <div style="font-weight:700">Sprint Runner — Black</div>
+                                            <div class="ns-help">Size 9 • Qty: <span id="ns-revQty">1</span></div>
+                                        </div>
+                                        <div style="font-weight:700">₹ <span id="ns-revPrice">6,999</span></div>
+                                    </div>
+
+                                    <div style="display:flex;justify-content:space-between;gap:12px;">
+                                        <div>
+                                            <div class="ns-help">Shipping to</div>
+                                            <div class="muted" id="ns-revShip">—</div>
+                                        </div>
+                                        <div style="text-align:right">
+                                            <div class="ns-help">Method</div>
+                                            <div class="muted" id="ns-revMethod">—</div>
+                                        </div>
+                                    </div>
+
+                                    <hr style="border:none;border-top:1px solid #eef2f7;margin:.5rem 0">
+
+                                    <div style="display:flex;justify-content:space-between;font-weight:700;">
+                                        <div>Total</div>
+                                        <div>₹ <span id="ns-revTotal">6,999</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="ns-actions">
+                                    <div class="left">
+                                        <button type="button" class="btn btn--ghost" data-prev>← Back</button>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn--primary">Place order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Success -->
+                        <div class="ns-step" data-step="3" style="display:none">
+                            <div class="ns-success">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="#ecfdf5" />
+                                    <path d="M7 12l2.5 2.5L17 7.5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <div class="big">Order confirmed</div>
+                                <div class="ns-help">Thanks — your order number is <strong>#ST-1001</strong></div>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+
+                <!-- RIGHT: compact order summary -->
+                <aside>
+                    <div class="ns-order-summary" aria-hidden="false" id="ns-orderSummary">
+                        <h4 style="margin:0 0 .5rem 0">Order summary</h4>
+
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem">
+                            <div class="ns-help">Subtotal</div>
+                            <div class="ns-help">₹ <span id="ns-asideSubtotal">6999</span></div>
+                        </div>
+
+                        <div style="display:flex;justify-content:space-between;margin-bottom:.2rem">
+                            <div>
+                                <div class="ns-help">Shipping</div>
+                                <div id="ns-asideMethodPreview" class="aside-method">
+                                    <span class="small-muted">Select method</span>
+                                </div>
+                            </div>
+                            <div class="ns-help">₹ <span id="ns-asideShipping">0</span></div>
+                        </div>
+
+                        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem;margin-top:.4rem">
+                            <div>Total</div>
+                            <div>₹ <span id="ns-asideTotal">6999</span></div>
+                        </div>
+
+                        <!-- SHIPPING METHODS RENDERED HERE -->
+                       @*  <div class="ns-methods-title" style="margin-top:0.4rem">Shipping options</div> *@
+                        <div id="ns-methodsAside" aria-live="polite" style="margin-top:.4rem"></div>
+
+                        <div style="margin-top:.75rem;font-size:.85rem;color:var(--muted)">
+                            Secure payment • Easy returns
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js//Checkout.js">
+        /* Namespaced JS — stepper, qty, progress, offline shipping rule engine (methods render in aside) */
+     
+    </script>
+

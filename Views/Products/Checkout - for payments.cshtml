@@ -1,0 +1,941 @@
+﻿
+<head>
+   
+    <!-- Optional: Inter font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+
+    <style>
+        /*
+            Fully namespaced styles: every rule starts with .ns-checkout-wrapper
+            — prevents any leakage to the rest of the page.
+          */
+
+        .ns-checkout-wrapper {
+            --accent: #111827;
+            --muted: #6b7280;
+            --card: #f8fafc;
+            --radius: 12px;
+            --max-width: 1200px;
+            --gap: 1rem;
+            --transition: 220ms cubic-bezier(.2,.9,.3,1);
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+            .ns-checkout-wrapper * {
+                box-sizing: border-box;
+            }
+
+            /* container */
+            .ns-checkout-wrapper .ns-stepform {
+                width: 100%;
+                max-width: var(--max-width);
+                background: var(--card);
+                border-radius: var(--radius);
+                box-shadow: 0 6px 30px rgba(16,24,40,0.06);
+                overflow: hidden;
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            /* header */
+            .ns-checkout-wrapper .ns-stepform__header {
+                padding: 1rem;
+                background: linear-gradient(90deg,#111827,#1f2937);
+                color: white;
+                display: flex;
+                gap: .75rem;
+                align-items: center;
+                border-bottom: 1px solid rgba(255,255,255,0.04);
+            }
+
+            .ns-checkout-wrapper .ns-stepform__brand {
+                font-weight: 700;
+                letter-spacing: .4px;
+                font-size: 1.05rem;
+            }
+
+            .ns-checkout-wrapper .ns-stepform__title {
+                margin-left: auto;
+                font-size: .95rem;
+                opacity: .9;
+            }
+
+            /* main layout: steps (left) + panel (right) on wide screens */
+            .ns-checkout-wrapper .ns-stepform__main {
+                display: grid;
+                gap: var(--gap);
+                padding: 1rem;
+            }
+
+            /* progress / steps list */
+            .ns-checkout-wrapper .ns-stepform__steps {
+                display: flex;
+                gap: .5rem;
+                align-items: center;
+                overflow: auto;
+                padding-bottom: .25rem;
+            }
+
+            .ns-checkout-wrapper .ns-stepform__step {
+                display: flex;
+                align-items: center;
+                gap: .6rem;
+                padding: .5rem .65rem;
+                border-radius: 999px;
+                background: transparent;
+                cursor: pointer;
+                user-select: none;
+                flex: 0 0 auto;
+                transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+                color: var(--muted);
+                font-size: .92rem;
+            }
+
+                .ns-checkout-wrapper .ns-stepform__step[aria-current="true"] {
+                    background: white;
+                    box-shadow: 0 6px 26px rgba(16,24,40,0.06);
+                    color: var(--accent);
+                }
+
+                .ns-checkout-wrapper .ns-stepform__step .dot {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    display: inline-grid;
+                    place-items: center;
+                    font-weight: 600;
+                    background: linear-gradient(180deg,#ffffff,#f3f4f6);
+                    box-shadow: 0 1px 0 rgba(16,24,40,0.04) inset;
+                    color: var(--muted);
+                    font-size: .95rem;
+                }
+
+                .ns-checkout-wrapper .ns-stepform__step[aria-current="true"] .dot {
+                    background: linear-gradient(180deg,#111827,#111827);
+                    color: white;
+                }
+
+                /* visible focus ring for keyboard users */
+                .ns-checkout-wrapper .ns-stepform__step:focus,
+                .ns-checkout-wrapper .ns-stepform__step[tabindex]:focus {
+                    outline: 4px solid rgba(59,130,246,0.14);
+                    outline-offset: 4px;
+                    border-radius: 999px;
+                }
+
+            /* card area */
+            .ns-checkout-wrapper .ns-stepform__panel {
+                background: white;
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: 0 3px 14px rgba(16,24,40,0.04);
+            }
+
+            /* form grid */
+            .ns-checkout-wrapper .ns-form-grid {
+                display: grid;
+                gap: .75rem;
+            }
+
+            .ns-checkout-wrapper .ns-row {
+                display: grid;
+                gap: .5rem;
+            }
+
+            /* inputs */
+            .ns-checkout-wrapper .ns-input {
+                display: flex;
+                flex-direction: column;
+                gap: .35rem;
+                font-size: .92rem;
+            }
+
+                .ns-checkout-wrapper .ns-input label {
+                    font-weight: 600;
+                    font-size: .82rem;
+                    color: var(--muted);
+                }
+
+                .ns-checkout-wrapper .ns-input input,
+                .ns-checkout-wrapper .ns-input select,
+                .ns-checkout-wrapper .ns-input textarea {
+                    padding: .7rem;
+                    border-radius: 9px;
+                    border: 1px solid #e6e9ef;
+                    outline: none;
+                    font-size: .95rem;
+                    background: #fff;
+                    transition: box-shadow var(--transition), border-color var(--transition);
+                }
+
+                    .ns-checkout-wrapper .ns-input input:focus,
+                    .ns-checkout-wrapper .ns-input select:focus,
+                    .ns-checkout-wrapper .ns-input textarea:focus {
+                        box-shadow: 0 6px 20px rgba(17,24,39,0.06);
+                        border-color: #c7d2fe;
+                    }
+
+            .ns-checkout-wrapper .ns-help {
+                font-size: .8rem;
+                color: var(--muted);
+            }
+
+            .ns-checkout-wrapper .ns-error {
+                color: #ef4444;
+                font-size: .85rem;
+                margin-top: .25rem;
+                display: none;
+            }
+
+            /* actions and buttons */
+            .ns-checkout-wrapper .ns-actions {
+                display: flex;
+                gap: .5rem;
+                margin-top: .75rem;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .ns-checkout-wrapper .btn {
+                border: 0;
+                padding: .7rem .95rem;
+                border-radius: 9px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: transform var(--transition), box-shadow var(--transition);
+                font-size: .95rem;
+                background: transparent;
+                color: var(--accent);
+            }
+
+                .ns-checkout-wrapper .btn:active {
+                    transform: translateY(1px);
+                }
+
+            .ns-checkout-wrapper .btn--primary {
+                background: linear-gradient(90deg,#111827,#1f2937);
+                color: white;
+                box-shadow: 0 12px 30px rgba(17,24,39,0.12);
+            }
+
+            .ns-checkout-wrapper .btn--ghost {
+                background: transparent;
+                border: 1px solid #e6e9ef;
+                color: var(--accent);
+            }
+
+            /* order summary */
+            .ns-checkout-wrapper .ns-order-summary {
+                border-radius: 10px;
+                padding: .85rem;
+                background: linear-gradient(180deg,#ffffff,#fbfdff);
+                border: 1px solid #eef2f7;
+                font-size: .92rem;
+            }
+
+            .ns-checkout-wrapper .ns-product {
+                display: flex;
+                gap: .7rem;
+                align-items: center;
+            }
+
+                .ns-checkout-wrapper .ns-product img {
+                    width: 64px;
+                    height: 64px;
+                    border-radius: 8px;
+                    object-fit: cover;
+                    flex-shrink: 0;
+                    background: #f1f5f9;
+                    vertical-align: middle;
+                }
+
+            .ns-checkout-wrapper .ns-product__meta {
+                flex: 1;
+            }
+
+            .ns-checkout-wrapper .ns-qty {
+                display: flex;
+                gap: .4rem;
+                align-items: center;
+            }
+
+                .ns-checkout-wrapper .ns-qty button {
+                    border-radius: 8px;
+                    padding: .35rem .5rem;
+                    border: 1px solid #e6e9ef;
+                    background: white;
+                    cursor: pointer;
+                    min-width: 32px;
+                    text-align: center;
+                }
+
+            .ns-checkout-wrapper .ns-subtotal {
+                font-weight: 700;
+                font-size: 1.05rem;
+                text-align: right;
+            }
+
+            /* progress bar */
+            .ns-checkout-wrapper .ns-progressbar {
+                height: 8px;
+                background: linear-gradient(90deg,#eef2ff,#f3f4f6);
+                border-radius: 999px;
+                overflow: hidden;
+                margin-top: .5rem;
+            }
+
+            .ns-checkout-wrapper .ns-progressbar__fill {
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg,#10b981,#06b6d4);
+                transition: width var(--transition);
+            }
+
+            /* review & success */
+            .ns-checkout-wrapper .ns-review {
+                display: grid;
+                gap: .6rem;
+                font-size: .92rem;
+            }
+
+            .ns-checkout-wrapper .ns-success {
+                display: grid;
+                gap: .5rem;
+                place-items: center;
+                padding: 1.2rem;
+            }
+
+                .ns-checkout-wrapper .ns-success .big {
+                    font-size: 1.4rem;
+                    font-weight: 700;
+                }
+
+        /* responsive */
+        @@media (min-width: 860px) {
+            .ns-checkout-wrapper .ns-stepform__main
+
+        {
+            grid-template-columns: 1fr 360px;
+            align-items: start;
+        }
+
+        .ns-checkout-wrapper .ns-stepform__panel {
+            min-height: 360px;
+        }
+
+        .ns-checkout-wrapper .ns-order-summary {
+            position: sticky;
+            top: 1rem;
+        }
+
+        .ns-checkout-wrapper .ns-product img {
+            width: 76px;
+            height: 76px;
+        }
+
+        .ns-checkout-wrapper .ns-progressbar {
+            height: 10px;
+        }
+
+        .ns-checkout-wrapper .ns-stepform__steps {
+            flex-direction: column;
+            gap: .75rem;
+            padding: .5rem 0;
+        }
+
+        .ns-checkout-wrapper .ns-stepform__step {
+            padding: .6rem;
+            border-radius: 14px;
+        }
+
+        }
+
+        /* make primary actionable buttons full width on small screens */
+        @@media (max-width: 640px) {
+            .ns-checkout-wrapper .ns-actions
+
+        {
+            flex-direction: column-reverse;
+            gap: .5rem;
+            align-items: stretch;
+        }
+
+        .ns-checkout-wrapper .btn--primary {
+            width: 100%;
+            display: block;
+        }
+
+        .ns-checkout-wrapper .btn--ghost {
+            width: 100%;
+            display: block;
+        }
+
+        }
+
+        /* small aesthetic: slightly stronger product title weight */
+        .ns-checkout-wrapper .ns-product__meta > div:first-child {
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+    <!-- =========================
+       FULL NAMESPACED CHECKOUT MARKUP (fixed)
+       ========================= -->
+    <div class="ns-checkout-wrapper" aria-live="polite">
+        <div class="ns-stepform" id="ns-checkout">
+
+            <!-- header -->
+            <div class="ns-stepform__header" role="banner">
+                <div class="ns-stepform__brand">YourStore</div>
+                <div class="ns-stepform__title">Secure checkout</div>
+            </div>
+
+            <div class="ns-stepform__main">
+                <!-- LEFT: steps & panels -->
+                <div>
+                    <!-- steps (progress chips) -->
+                    <nav class="ns-stepform__steps" aria-label="Checkout steps" id="ns-stepsList">
+                        <div class="ns-stepform__step" data-step="0" role="button" tabindex="0" aria-current="true">
+                            <span class="dot">1</span>
+                            <span class="label">Cart</span>
+                        </div>
+                        <div class="ns-stepform__step" data-step="1" role="button" tabindex="0" aria-current="false">
+                            <span class="dot">2</span>
+                            <span class="label">Shipping</span>
+                        </div>
+                        <div class="ns-stepform__step" data-step="2" role="button" tabindex="0" aria-current="false">
+                            <span class="dot">3</span>
+                            <span class="label">Payment</span>
+                        </div>
+                        <div class="ns-stepform__step" data-step="3" role="button" tabindex="0" aria-current="false">
+                            <span class="dot">4</span>
+                            <span class="label">Review</span>
+                        </div>
+                    </nav>
+
+                    <!-- progress bar -->
+                    <div class="ns-progressbar" aria-hidden="true">
+                        <div class="ns-progressbar__fill" id="ns-progressFill" style="width:25%"></div>
+                    </div>
+
+                    <!-- panel card -->
+                    <section class="ns-stepform__panel" id="ns-panelArea">
+
+                        <!-- Step 0: Cart -->
+                        <form class="ns-form ns-step" data-step="0" novalidate>
+                            <div class="ns-form-grid">
+                                <h3 style="margin:0 0 .5rem 0">Cart</h3>
+                                <p class="ns-help">Review items in your bag and quantities.</p>
+
+                                <div class="ns-order-summary" aria-live="polite">
+                                    <div class="ns-product">
+                                        <img src="https://images.unsplash.com/photo-1528701800489-4761b7ddb4b3?w=800&q=60&auto=format&fit=crop" alt="Running shoe">
+                                        <div class="ns-product__meta">
+                                            <div style="font-weight:700">Sprint Runner — Black</div>
+                                            <div class="ns-help">Size: 9 • Color: Black</div>
+                                        </div>
+                                        <div style="text-align:right">
+                                            <div class="ns-qty" aria-hidden="false">
+                                                <button type="button" class="ns-qty-decrease" aria-label="Decrease quantity">−</button>
+                                                <div style="padding:.35rem .6rem; min-width:36px; text-align:center" id="ns-qty">1</div>
+                                                <button type="button" class="ns-qty-increase" aria-label="Increase quantity">+</button>
+                                            </div>
+                                            <div style="margin-top:.5rem" class="ns-help">₹ 6,999</div>
+                                        </div>
+                                    </div>
+
+                                    <hr style="border:none;border-top:1px solid #eef2f7;margin:.7rem 0">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                                        <div class="ns-help">Subtotal</div>
+                                        <div class="ns-subtotal" id="ns-subtotal">₹ 6,999</div>
+                                    </div>
+                                </div>
+
+                                <div class="ns-actions">
+                                    <div class="left">
+                                        <button type="button" class="btn btn--ghost" id="ns-continueShopping">← Continue shopping</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn--primary" data-next>Proceed to shipping →</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Step 1: Shipping -->
+                        <form class="ns-form ns-step" data-step="1" novalidate>
+                            <div class="ns-form-grid">
+                                <h3 style="margin:0 0 .5rem 0">Shipping</h3>
+                                <p class="ns-help">Enter shipping address</p>
+
+                                <div class="ns-row">
+                                    <div class="ns-input">
+                                        <label for="ns-fullname">Full name</label>
+                                        <input id="ns-fullname" name="fullname" required placeholder="John Doe" autocomplete="name">
+                                        <div class="ns-error" data-for="ns-fullname">Please enter a name.</div>
+                                    </div>
+
+                                    <div class="ns-input">
+                                        <label for="ns-phone">Phone</label>
+                                        <input id="ns-phone" name="phone" type="tel" required placeholder="+91 98765 43210" autocomplete="tel">
+                                        <div class="ns-error" data-for="ns-phone">Please enter a phone.</div>
+                                    </div>
+
+                                    <div class="ns-input">
+                                        <label for="ns-address1">Address line 1</label>
+                                        <input id="ns-address1" name="address1" required placeholder="House, street, building" autocomplete="street-address">
+                                        <div class="ns-error" data-for="ns-address1">Please enter address.</div>
+                                    </div>
+
+                                    <div class="ns-input">
+                                        <label for="ns-address2">Address line 2 <span class="ns-help">(optional)</span></label>
+                                        <input id="ns-address2" name="address2" placeholder="Landmark, colony">
+                                    </div>
+
+                                    <div style="display:grid;grid-template-columns:1fr 120px;gap:.5rem">
+                                        <div class="ns-input">
+                                            <label for="ns-city">City</label>
+                                            <input id="ns-city" name="city" required placeholder="City">
+                                            <div class="ns-error" data-for="ns-city">Please enter city.</div>
+                                        </div>
+                                        <div class="ns-input">
+                                            <label for="ns-pincode">Pincode</label>
+                                            <input id="ns-pincode" name="pincode" required placeholder="560001" inputmode="numeric">
+                                            <div class="ns-error" data-for="ns-pincode">Please enter pincode.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ns-actions">
+                                        <div class="left">
+                                            <button type="button" class="btn btn--ghost" data-prev>← Back</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn--primary" data-next>Continue to payment →</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Step 2: Payment -->
+                        <form class="ns-form ns-step" data-step="2" style="display:none" novalidate>
+                            <div class="ns-form-grid">
+                                <h3 style="margin:0 0 .5rem 0">Payment</h3>
+                                <p class="ns-help">Choose payment method</p>
+
+                                <div class="ns-input" role="radiogroup" aria-label="Payment methods">
+                                    <label style="font-weight:700; margin-bottom:.35rem">Payment method</label>
+
+                                    <label style="display:flex;gap:.6rem;align-items:center;padding:.6rem;border-radius:10px;border:1px solid #eef2f7;">
+                                        <input type="radio" name="ns-paymethod" value="card" checked> Card
+                                        <span class="ns-help" style="margin-left:auto">Visa / Mastercard</span>
+                                    </label>
+
+                                    <label style="display:flex;gap:.6rem;align-items:center;padding:.6rem;border-radius:10px;border:1px solid #eef2f7;">
+                                        <input type="radio" name="ns-paymethod" value="upi"> UPI
+                                        <span class="ns-help" style="margin-left:auto">PhonePe / GooglePay</span>
+                                    </label>
+
+                                    <label style="display:flex;gap:.6rem;align-items:center;padding:.6rem;border-radius:10px;border:1px solid #eef2f7;">
+                                        <input type="radio" name="ns-paymethod" value="cod"> Cash on delivery
+                                        <span class="ns-help" style="margin-left:auto">Pay at delivery</span>
+                                    </label>
+                                </div>
+
+                                <!-- card details -->
+                                <div class="ns-row" id="ns-cardDetails">
+                                    <div class="ns-input">
+                                        <label for="ns-cardnumber">Card number</label>
+                                        <input id="ns-cardnumber" name="cardnumber" inputmode="numeric" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                        <div class="ns-error" data-for="ns-cardnumber">Invalid card number.</div>
+                                    </div>
+
+                                    <div style="display:flex;gap:.5rem">
+                                        <div class="ns-input" style="flex:1">
+                                            <label for="ns-expire">Expiry</label>
+                                            <input id="ns-expire" name="expire" placeholder="MM/YY" required>
+                                            <div class="ns-error" data-for="ns-expire">Invalid expiry.</div>
+                                        </div>
+                                        <div class="ns-input" style="width:110px">
+                                            <label for="ns-cvv">CVV</label>
+                                            <input id="ns-cvv" name="cvv" inputmode="numeric" maxlength="4" placeholder="123" required>
+                                            <div class="ns-error" data-for="ns-cvv">Invalid CVV.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="ns-actions">
+                                    <div class="left">
+                                        <button type="button" class="btn btn--ghost" data-prev>← Back</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn--primary" data-next>Review order →</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Step 3: Review -->
+                        <form class="ns-form ns-step" data-step="3" style="display:none" novalidate>
+                            <div class="ns-form-grid">
+                                <h3 style="margin:0 0 .5rem 0">Review & place order</h3>
+                                <p class="ns-help">Confirm details below before placing order.</p>
+
+                                <div class="ns-review">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                                        <div>
+                                            <div style="font-weight:700">Sprint Runner — Black</div>
+                                            <div class="ns-help">Size 9 • Qty: <span id="ns-revQty">1</span></div>
+                                        </div>
+                                        <div style="font-weight:700">₹ <span id="ns-revPrice">6,999</span></div>
+                                    </div>
+
+                                    <div style="display:flex;justify-content:space-between;">
+                                        <div class="ns-help">Shipping to</div>
+                                        <div id="ns-revShip" class="ns-help">—</div>
+                                    </div>
+
+                                    <div style="display:flex;justify-content:space-between;">
+                                        <div class="ns-help">Payment</div>
+                                        <div id="ns-revPay" class="ns-help">—</div>
+                                    </div>
+
+                                    <hr style="border:none;border-top:1px solid #eef2f7;margin:.5rem 0">
+
+                                    <div style="display:flex;justify-content:space-between;font-weight:700;">
+                                        <div>Total</div>
+                                        <div>₹ <span id="ns-revTotal">6,999</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="ns-actions">
+                                    <div class="left">
+                                        <button type="button" class="btn btn--ghost" data-prev>← Back</button>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn--primary">Place order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Success -->
+                        <div class="ns-step" data-step="4" style="display:none">
+                            <div class="ns-success">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="#ecfdf5" />
+                                    <path d="M7 12l2.5 2.5L17 7.5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <div class="big">Order confirmed</div>
+                                <div class="ns-help">Thanks — your order number is <strong>#ST-1001</strong></div>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+
+                <!-- RIGHT: compact order summary on wide screens -->
+                <aside>
+                    <div class="ns-order-summary" aria-hidden="false">
+                        <h4 style="margin:0 0 .5rem 0">Order summary</h4>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:.6rem">
+                            <div class="ns-help">Subtotal</div>
+                            <div class="ns-help">₹ <span id="ns-asideSubtotal">6999</span></div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:.6rem">
+                            <div class="ns-help">Shipping</div>
+                            <div class="ns-help">₹ <span id="ns-asideShipping">0</span></div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem">
+                            <div>Total</div>
+                            <div>₹ <span id="ns-asideTotal">6999</span></div>
+                        </div>
+                        <div style="margin-top:.75rem;font-size:.85rem;color:var(--muted)">
+                            Secure payment • Easy returns
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* Fixed & robust namespaced JS for the checkout
+           - scoped to .ns-checkout-wrapper
+           - stable progress calculation
+           - guarded observers and fallbacks
+           - basic validation and focus management
+        */
+        (function(){
+          const wrapper = document.querySelector('.ns-checkout-wrapper');
+          if(!wrapper) return;
+
+          // prefer this id, but be tolerant
+          const root = wrapper.querySelector('#ns-checkout') || wrapper.querySelector('#checkout') || wrapper.querySelector('#ns-checkout');
+          if(!root) return;
+
+          // elements
+          const steps = () => Array.from(root.querySelectorAll('.ns-stepform__step'));
+          const panels = () => Array.from(root.querySelectorAll('.ns-step'));
+          const progressFill = wrapper.querySelector('.ns-progressbar__fill') || root.querySelector('#ns-progressFill') || root.querySelector('#progressFill');
+
+          const totalSteps = () => steps().length;
+          let current = 0; // will be updated by goTo
+
+          // pricing & qty
+          const qtyEl = root.querySelector('#ns-qty');
+          let qty = parseInt(qtyEl ? qtyEl.textContent : '1', 10) || 1;
+          const subtotalEl = root.querySelector('#ns-subtotal');
+          const asideSubtotal = root.querySelector('#ns-asideSubtotal');
+          const asideTotal = root.querySelector('#ns-asideTotal');
+          const revQty = root.querySelector('#ns-revQty');
+          const revTotal = root.querySelector('#ns-revTotal');
+          const revPrice = root.querySelector('#ns-revPrice');
+
+          const UNIT_PRICE = 6999;
+
+          function updatePrices(){
+            const total = UNIT_PRICE * qty;
+            if(subtotalEl) subtotalEl.textContent = '₹ ' + total.toLocaleString();
+            if(asideSubtotal) asideSubtotal.textContent = total.toLocaleString();
+            if(asideTotal) asideTotal.textContent = total.toLocaleString();
+            if(revQty) revQty.textContent = qty;
+            if(revTotal) revTotal.textContent = total.toLocaleString();
+            if(revPrice) revPrice.textContent = UNIT_PRICE.toLocaleString();
+          }
+
+          // qty handlers (guarded)
+          wrapper.querySelectorAll('.ns-qty-increase').forEach(btn=>{
+            btn.addEventListener('click', ()=>{ qty = Math.min(99, qty+1); if(qtyEl) qtyEl.textContent = qty; updatePrices(); });
+          });
+          wrapper.querySelectorAll('.ns-qty-decrease').forEach(btn=>{
+            btn.addEventListener('click', ()=>{ qty = Math.max(1, qty-1); if(qtyEl) qtyEl.textContent = qty; updatePrices(); });
+          });
+
+          updatePrices();
+
+          // click on step chips
+          steps().forEach((s,i)=>{
+            s.addEventListener('click', ()=> goTo(i) );
+            s.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(i); } });
+          });
+
+          // next/prev controllers inside forms
+          wrapper.querySelectorAll('[data-next]').forEach(btn=>{
+            btn.addEventListener('click', ()=> {
+              const curForm = wrapper.querySelector('.ns-form[data-step="'+current+'"]');
+              if(curForm){
+                if(!validateForm(curForm)) return;
+              }
+              goTo(current+1);
+            });
+          });
+          wrapper.querySelectorAll('[data-prev]').forEach(btn=>{
+            btn.addEventListener('click', ()=> goTo(current-1) );
+          });
+
+          // form submit (place order)
+          wrapper.querySelectorAll('.ns-form').forEach(form=>{
+            form.addEventListener('submit', (e)=>{
+              e.preventDefault();
+              if(!validateForm(form)) return;
+              // show success step (4)
+              goTo(4);
+            });
+          });
+
+          // simple validation
+          function validateForm(form){
+            const fields = Array.from(form.querySelectorAll('[required]'));
+            let ok = true;
+            fields.forEach(f=>{
+              const err = form.querySelector('[data-for="'+f.id+'"]');
+              if(!f.value || !String(f.value).trim()){
+                ok = false;
+                if(err) err.style.display = 'block';
+                f.setAttribute('aria-invalid','true');
+              } else {
+                if(err) err.style.display = 'none';
+                f.removeAttribute('aria-invalid');
+              }
+            });
+
+            // card specific checks (if card inputs present and visible)
+            const card = form.querySelector('#ns-cardnumber');
+            if(card && card.offsetParent !== null && card.value.trim()){
+              const normalized = card.value.replace(/\s+/g,'');
+              if(!/^\d{13,19}$/.test(normalized)){
+                ok = false;
+                const err = form.querySelector('[data-for="ns-cardnumber"]'); if(err) err.style.display='block';
+              }
+            }
+
+            return ok;
+          }
+
+          // get active step index robustly
+          function getActiveStepIndex(){
+            const s = steps();
+            const ariaIndex = s.findIndex(x => x.getAttribute('aria-current') === 'true' );
+            if(ariaIndex >= 0) return ariaIndex;
+
+            // fallback: check visible panel with numeric data-step (exclude success)
+            const p = panels();
+            for(let el of p){
+              const style = window.getComputedStyle(el);
+              if(style && style.display !== 'none' && el.dataset && el.dataset.step && el.dataset.step !== '4'){
+                const ds = parseInt(el.dataset.step,10);
+                if(!Number.isNaN(ds)) return ds;
+              }
+            }
+            return 0;
+          }
+
+          // goTo function: show panel & update chips & progress
+          function goTo(index){
+            if(typeof index !== 'number') index = parseInt(index,10) || 0;
+            if(index < 0) index = 0;
+            // allow success index 4
+            if(index > totalSteps()) index = totalSteps();
+
+            // hide all panels
+            panels().forEach(p => p.style.display = 'none');
+
+            // update aria-current on chips safely
+            steps().forEach((s,i)=> {
+              try { s.setAttribute('aria-current', i === index ? 'true' : 'false'); } catch(e){ /* ignore */ }
+            });
+
+            // show appropriate panel
+            if(index === 4){
+              const success = wrapper.querySelector('.ns-step[data-step="4"]');
+              if(success) success.style.display = 'block';
+            } else {
+              const toShow = wrapper.querySelector('.ns-step[data-step="'+index+'"]');
+              if(toShow) toShow.style.display = 'block';
+            }
+
+            // if moving to review populate summary fields
+            if(index === 3){
+              const ship = (wrapper.querySelector('#ns-address1') && wrapper.querySelector('#ns-address1').value) || '—';
+              const payMethodNode = wrapper.querySelector('input[name="ns-paymethod"]:checked');
+              const payMethod = (payMethodNode && payMethodNode.value) ? payMethodNode.value.toUpperCase() : '—';
+              const revShip = wrapper.querySelector('#ns-revShip'); if(revShip) revShip.textContent = ship;
+              const revPay = wrapper.querySelector('#ns-revPay'); if(revPay) revPay.textContent = payMethod;
+            }
+
+            // focus first input in the newly shown panel (accessibility)
+            setTimeout(() => {
+              const visible = wrapper.querySelector('.ns-step:not([style*="display: none"])');
+              if(visible){
+                const first = visible.querySelector('input, button, select, textarea');
+                if(first) first.focus();
+              }
+            }, 40);
+
+            current = index;
+            updateProgress();
+          }
+
+          // update progress fill using (index+1)/(steps+1)
+          function updateProgress(){
+            if(!progressFill) return;
+            const sCount = totalSteps();
+            if(sCount === 0) return;
+            const idx = getActiveStepIndex();
+            const pct = Math.round(((idx + 1) / (sCount + 1)) * 100);
+            progressFill.style.width = pct + '%';
+          }
+
+          // initial
+          // ensure panels states reflect aria-current if any
+          (function initPanels(){
+            const ariaIndex = getActiveStepIndex();
+            // hide all
+            panels().forEach(p => p.style.display = 'none');
+            // show the panel matching ariaIndex (or 0)
+            const initial = wrapper.querySelector('.ns-step[data-step="'+ariaIndex+'"]') || wrapper.querySelector('.ns-step[data-step="0"]');
+            if(initial) initial.style.display = 'block';
+            current = ariaIndex || 0;
+            updateProgress();
+          })();
+
+          // format card number input (guarded)
+          const cardInput = wrapper.querySelector('#ns-cardnumber');
+          if(cardInput){
+            cardInput.addEventListener('input', (e)=>{
+              const v = e.target.value.replace(/\D/g,'').slice(0,19);
+              const parts = v.match(/.{1,4}/g);
+              e.target.value = parts ? parts.join(' ') : v;
+            });
+          }
+
+          // Payment method toggling (show/hide card details)
+          wrapper.querySelectorAll('input[name="ns-paymethod"]').forEach(radio=>{
+            radio.addEventListener('change', (e)=>{
+              const val = e.target.value;
+              const cardBlock = wrapper.querySelector('#ns-cardDetails');
+              if(cardBlock){
+                if(val === 'card') cardBlock.style.display = 'grid';
+                else cardBlock.style.display = 'none';
+              }
+            });
+          });
+          // initial toggle
+          const initialPay = wrapper.querySelector('input[name="ns-paymethod"]:checked');
+          if(initialPay && initialPay.value !== 'card'){
+            const cardBlock = wrapper.querySelector('#ns-cardDetails');
+            if(cardBlock) cardBlock.style.display = 'none';
+          }
+
+          // Observe changes on chips and panels to keep progress synced (guarded)
+          try {
+            const chipList = steps();
+            if(chipList.length){
+              const mo = new MutationObserver((mutations) => {
+                for(const m of mutations){
+                  if(m.type === 'attributes' && m.attributeName === 'aria-current'){ updateProgress(); break; }
+                }
+              });
+              chipList.forEach(c => mo.observe(c, { attributes: true, attributeFilter: ['aria-current'] }));
+            }
+
+            const panelList = panels();
+            if(panelList.length){
+              const moPanels = new MutationObserver(() => updateProgress());
+              panelList.forEach(p => moPanels.observe(p, { attributes: true, attributeFilter: ['style', 'class'] }));
+            }
+          } catch(e){ /* ignore observer failures on very old/limited environments */ }
+
+          // attach click & keyboard listeners to the step chips container (guarded)
+          const stepsContainer = root.querySelector('.ns-stepform__steps');
+          if(stepsContainer){
+            stepsContainer.addEventListener('click', () => setTimeout(updateProgress, 40));
+            stepsContainer.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') setTimeout(updateProgress, 40); });
+          }
+
+          // make all .ns-error elements announceable by screen readers
+          wrapper.querySelectorAll('.ns-error').forEach(e => {
+            if(!e.hasAttribute('role')) e.setAttribute('role','status');
+            if(!e.hasAttribute('aria-live')) e.setAttribute('aria-live','polite');
+          });
+
+          // recalc when window resizes (layout changes may reveal/hide things)
+          window.addEventListener('resize', () => setTimeout(updateProgress, 80));
+
+          // keyboard: Esc backs one step
+          document.addEventListener('keydown', (e)=>{
+            if(e.key === 'Escape') goTo(Math.max(0,current-1));
+          });
+
+        })();
+    </script>
+
